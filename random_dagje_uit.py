@@ -26,7 +26,17 @@ logger = set_logger_profile.logger(name=str(os.path.basename(__file__)),
 Begroeten van de kids en vragen wat voor uitje ze vandaag willen ondernemen. 
 """
 welkom = "Hoi Mick en Zoë, willen jullie vandaag iets Binnen- of Buiten doen?"
-input_binnen_of_buiten = input(welkom)
+
+input_binnen_of_buiten = ""
+while input_binnen_of_buiten.upper() != "BINNEN" or \
+        input_binnen_of_buiten.upper() != "BUITEN":
+    input_binnen_of_buiten = input(welkom)
+    if input_binnen_of_buiten.upper() == "BINNEN":
+        break
+    if input_binnen_of_buiten.upper() == "BUITEN":
+        break
+    if input_binnen_of_buiten.upper() == "BINNEN" or "BUITEN":
+        print("Typ exact Binnen of Buiten.")
 
 """
 Uitjes bestandslocatie bepalen. 
@@ -55,13 +65,13 @@ while i == 0:
     row = process_uitjes_file.get_row_file(data_file_path,
                                            random_row_file)
     logger.debug(row)
-    logger.debug(row["Uitje"])
-    logger.debug(row["Binnen_of_Buiten"])
+    logger.debug("Uitje: " + row["Uitje"])
+    logger.debug("Binnen_of_Buiten: " + row["Binnen_of_Buiten"])
 
-    if row["Binnen_of_Buiten"] != input_binnen_of_buiten:
+    if row["Binnen_of_Buiten"].upper() != input_binnen_of_buiten.upper():
         logger.debug("Continue the while loop")
         continue
-    if row["Binnen_of_Buiten"] == input_binnen_of_buiten:
+    if row["Binnen_of_Buiten"].upper() == input_binnen_of_buiten.upper():
         logger.debug("Break the while loop")
         break
 
